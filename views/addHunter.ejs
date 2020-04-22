@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <% if(msg) {%><div><%= msg%></div><br><%}%>
+        <div></div>
+        
+        <form action="/register/hunter" method="POST">
+        Name<br>
+        <input type="text" name="name" placeholder="Name" value="<% if(data){ %><%= data.name %><% } %>"><br><br>
+        Phone Number<br>
+        <input type="text" name="phone_number" placeholder="Phone Number" value="<% if(data){ %><%= data.phone_number %><% } %>"><br><br>
+        email<br>
+        <input type="text" name="email" placeholder="Email" value="<% if(data){ %><%= data.email%><% } %>"><br><br>
+        Hunting Experience<br>
+        <input type="number" name="start_hunt_year" placeholder="in years. e.g : 2" value="<% if(data){ %><%= data.start_hunt_year %><% } %>"><br><br>
+        Team Size<br>
+        <input type="number" name="team_size" placeholder="e.g : 5" value="<% if(data){ %><%= data.team_size %><% } %>"><br><br>
+        <% if(err) {%>
+            <div style="color: red;">
+                <% for (let i = 0; i < err.length; i++) {%>
+                    <%= err[i].message%><br>
+                <%}%>
+            </div><br>
+        <%}%>
+        <input type="submit" value="Register">
+    </form>
+    </body>
+</html>
