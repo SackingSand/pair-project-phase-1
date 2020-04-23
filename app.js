@@ -1,15 +1,12 @@
-`use strict`
-
-const express = require(`express`);
-const router = require(`./routes`)
+const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 6969;
+const router = require('./routers');
 
-app.set(`view engine`, `ejs`);
-app.use(express.urlencoded({extended:false}))
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 
 app.use(router);
 
-app.listen(port, (req, res) => {
-    console.log(`Power level is over ${port} !`)
-})
+app.listen(PORT, () => console.log(`Digging start at sites:${PORT}`));
