@@ -1,5 +1,6 @@
 'use strict'
 
+const bcrypt = require(`bcrypt`);
 const Model = require(`../models/`);
 const FossilHunter = Model.FossilHunter;
 
@@ -21,9 +22,13 @@ class Controller {
     }
 
     static createHunter (req, res){
-        const { name, phone_number, email, start_hunt_year, team_size} = req.body;
-        let newHunter = { name, phone_number, email, start_hunt_year, team_size }
-
+        const { name, password, password2, phone_number, email, start_hunt_year, team_size} = req.body;
+        let newHunter = { name, password, phone_number, email, start_hunt_year, team_size }
+        if(password!==password2){
+            console.log(`masuk`)
+            res.render(`addHunter`, { data : newHunter, msg : null, err : [{ message : `password mismatch`}]})
+            return
+        }
         FossilHunter
             .create(newHunter)
             .then(() => {
