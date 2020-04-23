@@ -11,7 +11,8 @@ router.get (`/`,
     next()
 } 
 ,hunterController.getProfiles);
-
+router.get (`/edit`, hunterController.huntersOnly, hunterController.editHunterForm)
+router.post(`/edit`, hunterController.huntersOnly, hunterController.updateHunter)
 router.get(`/logout`, hunterController.logout)
 
 

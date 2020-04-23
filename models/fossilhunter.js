@@ -69,6 +69,10 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate : (hunter, options) => {
         hunter.password = bcrypt.hashSync(hunter.password, saltRounds)
         // bcrypt.compareSync(myPlaintextPassword, hash);
+      },
+      afterCreate : (hunter, options) => {
+        hunter.password = bcrypt.hashSync(hunter.password, saltRounds)
+        // bcrypt.compareSync(myPlaintextPassword, hash);
       }
     },
     sequelize,
