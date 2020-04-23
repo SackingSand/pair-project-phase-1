@@ -2,6 +2,7 @@
 
 const bcrypt = require(`bcrypt`);
 const Model = require(`../models/`);
+const session = require(`express-session`)
 const FossilHunter = Model.FossilHunter;
 const saltRounds = 10;
 
@@ -58,8 +59,8 @@ class Controller {
                 if(!bcrypt.compareSync(password, data.password)){
                     throw new Error(`Kombinasi email & password tidak ditemukan`)
                 }
-                req.session.cookie.uid = data.id;
-                req.session.cookie.role = `hunter`;
+                req.session.uid = data.id;
+                req.session.role = `hunter`;
                 console.log(req.session);
                 res.redirect(`/hunters`)
             })

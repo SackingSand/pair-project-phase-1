@@ -11,8 +11,7 @@ app.use(express.static('public'));
 app.use(session({
     secret: 'digging',
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    saveUninitialized: false
   }))
 app.use(router);
 
