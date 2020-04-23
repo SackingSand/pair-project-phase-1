@@ -25,7 +25,7 @@ module.exports = {
         unique : true,
         allowNull: false
       },
-      start_hunt_year: {
+      hunting_experience: {
         type: Sequelize.STRING
       },
       team_size: {

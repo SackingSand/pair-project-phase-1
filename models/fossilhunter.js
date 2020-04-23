@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
         msg : `This email is already registered`
       }
     },
-    start_hunt_year: DataTypes.STRING,
+    hunting_experience: DataTypes.INTEGER,
     team_size: DataTypes.STRING
   }, 
   {
@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   FossilHunter.associate = function(models) {
     // associations can be defined here
-    FossilHunter.belongsToMany(models.ExcavationSite, { through : `Request`})
+    FossilHunter.belongsToMany(models.Site, { through : models.Request})
   };
   return FossilHunter;
 };

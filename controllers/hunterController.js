@@ -3,6 +3,7 @@
 const bcrypt = require(`bcrypt`);
 const Model = require(`../models/`);
 const FossilHunter = Model.FossilHunter;
+const { Op } = require("sequelize");
 
 
 class Controller {
@@ -27,8 +28,8 @@ class Controller {
     }
 
     static createHunter (req, res){
-        const { first_name, last_name, password, password2, phone_number, email, start_hunt_year, team_size} = req.body;
-        let newHunter = { first_name, last_name, password, phone_number, email, start_hunt_year, team_size }
+        const { first_name, last_name, password, password2, phone_number, email, hunting_experience, team_size} = req.body;
+        let newHunter = { first_name, last_name, password, phone_number, email, hunting_experience, team_size }
         if(password!==password2){
             console.log(`masuk`)
             res.render(`./hunters/addHunter`, { data : newHunter, msg : null, err : { message : `password mismatch`}})
@@ -50,7 +51,7 @@ class Controller {
     }
     
     static loginHunter (req, res) {
-        const { email, password } = req.body;
+        const { email, password} = req.body;
         FossilHunter
             .findOne({
                 where : {
@@ -77,6 +78,25 @@ class Controller {
     static logout (req, res){
         req.session.destroy(err => {
             res.redirect(`/`)
+        })
+    }
+
+    static showRequest(req, res) {
+        const { id } = req.session.uid;
+
+        Request
+        .findAll({
+            include: [FossilHunter],
+            where: {
+                FossilHunterId: id,
+                status: "active"
+            }
+        })
+        .then(results => {
+            res.json(results)
+        })
+        .catch(err => {
+            res.send(err);
         })
     }
 }

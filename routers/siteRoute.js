@@ -8,5 +8,6 @@ router.post('/add/:id', SiteController.addNewSite);
 router.get('/edit/:id', SiteController.showEditSiteForm);
 router.post('/edit/:id', SiteController.editSite);
 router.get('/delete/:id', SiteController.deleteSite);
+router.get('/:id/request', SiteController.getRequest);
 
 module.exports = router;

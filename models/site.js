@@ -92,6 +92,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Site.associate = function(models) {
     Site.belongsTo(models.Owner);
+    Site.belongsToMany(models.FossilHunter, { through: models.Request })
   };
   return Site;
 };
