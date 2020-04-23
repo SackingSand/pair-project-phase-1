@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const hunterController = require(`../controllers/hunter.js`);
+const hunterController = require(`../controllers/hunterController.js`);
 
 
 router.get (`/`, hunterController.getProfiles);

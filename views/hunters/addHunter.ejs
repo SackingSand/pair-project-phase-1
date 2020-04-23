@@ -9,8 +9,8 @@
         
         <form action="/register/hunter" method="POST">
         Name<br>
-        <input type="text" name="first_name" placeholder="Name" value="<% if(data){ %><%= data.first_name %><% } %>"><br>
-        <input type="text" name="last_name" placeholder="Name" value="<% if(data){ %><%= data.last_name %><% } %>"><br><br>
+        <input type="text" name="first_name" placeholder="first_name" value="<% if(data){ %><%= data.first_name %><% } %>"><br>
+        <input type="text" name="last_name" placeholder="last_name" value="<% if(data){ %><%= data.last_name %><% } %>"><br><br>
         Password<br>
         <input type="password" name="password" placeholder="Password"><br><br>
         Ketik ulang Password<br>
@@ -23,11 +23,15 @@
         <input type="number" name="start_hunt_year" placeholder="in years. e.g : 2" value="<% if(data){ %><%= data.start_hunt_year %><% } %>"><br><br>
         Team Size<br>
         <input type="number" name="team_size" placeholder="e.g : 5" value="<% if(data){ %><%= data.team_size %><% } %>"><br><br>
-        <% if(err) {%>
+        <% if(err.errors) {%>
             <div style="color: red;">
-                <% for (let i = 0; i < err.length; i++) {%>
-                    <%= err[i].message%><br>
+                <% for (let i = 0; i < err.errors.length; i++) {%>
+                    <%= err.errors[i].message%><br>
                 <%}%>
+            </div><br>
+        <%} else if(err.message) {%>
+            <div style="color: red;">
+                    <%= err.message%><br>
             </div><br>
         <%}%>
         <input type="submit" value="Register">
