@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Owned Sites</title>
+</head>
+<body>
+    <h1>Site List</h1>
+    <h2>Owner: <%= owner.fullName %></h2>
+    <h3><a href="/sites/add/<%= owner.id %>">Add More Sites</a></h3>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Site Name</th>
+                <th>Location</th>
+                <th>Area</th>
+                <th>Action</th>
+                <th>See Request</th>
+            </tr>
+            <% owner.Sites.forEach(site => {%>
+            <tr>
+                <td><%= site.name %></td>
+                <td><%= site.location %></td>
+                <td><%= site.area %> ha</td>
+                <td><a href="/sites/edit/<%= site.id %>">Edit</a> | <a href="/sites/delete/<%= site.id %>" onclick="return confirm('are you sure want to delete <%= site.name %> ?')">Delete</a></td>
+                <td><a href="#" target="_blank">request list</a></td>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
