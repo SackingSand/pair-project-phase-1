@@ -24,7 +24,7 @@
                 <td><%= site.location %></td>
                 <td><%= site.area %> ha</td>
                 <td><a href="/sites/edit/<%= site.id %>">Edit</a> | <a href="/sites/delete/<%= site.id %>" onclick="return confirm('are you sure want to delete <%= site.name %> ?')">Delete</a></td>
-                <td><a href="#" target="_blank">request list</a></td>
+                <td><a href="/owners/list/request/<%= site.id %>" >request list</a></td>
             </tr>
             <% }) %>
         </table>

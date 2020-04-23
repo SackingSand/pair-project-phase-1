@@ -1,4 +1,6 @@
-const { Owner, Site, Request } = require('../models/index.js');
+const { Owner, Site, Request, FossilHunter } = require('../models/index.js');
+
+const bcrypt = require(`bcrypt`);
 
 const bcrypt = require(`bcrypt`);
 
@@ -18,7 +20,7 @@ class OwnerController {
     }
 
     static showOwnedSites(req, res){
-        const { id } = req.params;
+        const id = req.session.uid;
 
         Owner
         .findByPk( id, {
@@ -33,19 +35,36 @@ class OwnerController {
     }
 
     static showRequestList(req, res) {
-        const id = req.params.id;
+        const { id } = req.params;
+        let request = [];
+        let site = '';
 
         Request
         .findAll({
-            include: [Site]
+            include: [{model: Site,
+            where: {
+                id: id
+            }}, FossilHunter ]
         })
         .then(results => {
-            res.json(results)
+            request = results;
+            return Site
+            .findByPk(id)
+        })
+        .then(results => {
+            site = results;
+            return Owner
+            .findByPk(req.session.uid)
+        })
+        .then(owner => {
+            res.json(request)
+            // res.render('./requests/listRequest', { owner, request, site });
         })
         .catch(err => {
             res.send(err)
         })
     }
+    
     
     static loginOwnerForm(req, res) {
         res.render(`./owners/login`, {data : null, msg :null, err : null})

@@ -6,6 +6,23 @@
     <title>Your Active Request</title>
 </head>
 <body>
-    
+    <h1><%= hunters.fullName %>, this is the list of your active request</h1>
+
+    <table border="1">
+        <tr>
+            <th>Site Name</th>
+            <th>Site Location</th>
+            <th>Request Date</th>
+            <th>Status</th>
+        </tr>
+        <% request.forEach(req => { %>
+        <tr>
+            <td><%= req.Site.name %></td>
+            <td><%= req.Site.location %></td>
+            <td><%= req.createdAt.toISOString().slice(0,10) %></td>
+            <td>Waiting for Approval</td>
+        </tr>
+        <% }) %>
+    </table>
 </body>
 </html>

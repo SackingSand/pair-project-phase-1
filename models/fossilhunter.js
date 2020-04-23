@@ -2,9 +2,14 @@
 const bcrypt = require(`bcrypt`);
 module.exports = (sequelize, DataTypes) => {
 
-  const Model = sequelize.Sequelize.Model;
+  const { Model } = sequelize.Sequelize;
   const saltRounds = 10;
-  class FossilHunter extends Model {}
+  
+  class FossilHunter extends Model {
+    get fullName() {
+      return `${this.first_name} ${this.last_name}`
+    }
+  }
 
   FossilHunter.init({
     first_name: {

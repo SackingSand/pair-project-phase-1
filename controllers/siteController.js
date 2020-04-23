@@ -40,7 +40,7 @@ class SiteController {
             })
         })
         .then(() => {
-            res.redirect('/owners/' +id+ '/list');
+            res.redirect('/owners/list');
         })
         .catch(err => {
             res.send(err.message);
@@ -82,7 +82,7 @@ class SiteController {
             })
         })
         .then(() => {
-            res.redirect('/owners/' +OwnerId+ '/list');
+            res.redirect('/owners/list');
         })
         .catch(err => {
             res.send(err.message);
@@ -113,15 +113,16 @@ class SiteController {
     }
 
     static getRequest(req, res) {
+        console.log(req.session.uid)
         const newRequest = {
             SiteId: req.params.id,
-            FossilHuntersId: req.session.uid
+            FossilHunterId: req.session.uid
         }
 
         Request
         .create(newRequest)
         .then(() => {
-            res.json(newRequest)
+            res.redirect('/sites')
         })
         .catch(err => {
             res.send(err.message)

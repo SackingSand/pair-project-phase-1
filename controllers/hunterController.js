@@ -2,7 +2,7 @@
 
 const bcrypt = require(`bcrypt`);
 const Model = require(`../models/`);
-const FossilHunter = Model.FossilHunter;
+const { FossilHunter, Request, Site } = Model;
 const { Op } = require("sequelize");
 
 
@@ -23,7 +23,8 @@ class Controller {
                 }
             })
             .then(data => {
-                res.send([data,req.session])
+                res.render('./hunters/hunterPage', { data })
+                // res.send([data,req.session])
             })
             .catch(err => {
                 res.send()
@@ -89,21 +90,56 @@ class Controller {
     }
 
     static showRequest(req, res) {
-        const { id } = req.session.uid;
+        console.log(req.session.uid);
+        const id = req.session.uid;
+        let request = [];
 
         Request
         .findAll({
-            include: [FossilHunter],
+            include: [FossilHunter, Site],
             where: {
                 FossilHunterId: id,
-                status: "active"
+                status: "pending"
             }
         })
         .then(results => {
-            res.json(results)
+            request = results;
+            return FossilHunter
+            .findByPk(id)
+        })
+        .then(hunters => {
+            res.render('./requests/requestStatus', { request, hunters })
         })
         .catch(err => {
             res.send(err);
+        })
+    }
+
+    static acceptRequest(req, res) {
+        const { id } = req.params;
+
+        Request
+        .findByPk(id)
+        .then(request => {
+            request.status = "accept"
+            res.send('Request for Excavation Granted')
+        })
+        .catch(err => {
+            res.send(err.message)
+        })
+    }
+
+    static rejectRequest(req, res) {
+        const { id } = req.params;
+
+        Request
+        .findByPk(id)
+        .then(request => {
+            request.status = "reject"
+            res.send('Request for Excavation Revoked')
+        })
+        .catch(err => {
+            res.send(err.message)
         })
     }
     static editHunterForm( req, res){
