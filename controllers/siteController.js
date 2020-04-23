@@ -1,4 +1,4 @@
-const { Owner, Site } = require('../models/index.js');
+const { Owner, Site, Request } = require('../models/index.js');
 
 class SiteController {
     static showAllSites(req, res) {
@@ -109,6 +109,22 @@ class SiteController {
         })
         .catch(err => {
             res.send(err.message);
+        })
+    }
+
+    static getRequest(req, res) {
+        const newRequest = {
+            SiteId: req.params.id,
+            FossilHuntersId: req.session.uid
+        }
+
+        Request
+        .create(newRequest)
+        .then(() => {
+            res.json(newRequest)
+        })
+        .catch(err => {
+            res.send(err.message)
         })
     }
 }

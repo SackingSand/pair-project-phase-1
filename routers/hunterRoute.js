@@ -1,5 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const HunterController = require('../controllers');
+const hunterController = require(`../controllers/hunterController.js`);
+
+
+router.get (`/`,
+(req, res, next) => {
+       if(req.session.role!==`hunter`){
+           res.redirect(`/`);
+       }
+    next()
+} 
+,hunterController.getProfiles);
+router.post(`/logout`, hunterController.logout)
+
 
 module.exports = router;

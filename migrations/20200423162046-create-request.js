@@ -8,23 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      hunter_id: {
-        type: Sequelize.INTEGER,
-        references : {
-          model : `FossilHunters`,
-          id : `id`
-        },
-        onUpdate : `cascade`,
-        onDelete : `cascade`
-      },
-      site_id: {
-        type: Sequelize.INTEGER,
-        references : {
-          model : `ExcavationSites`,
-          id : `id`
-        },
-        onUpdate : `cascade`,
-        onDelete : `cascade`
+      status: {
+        type: Sequelize.STRING,
+        defaultValues: "pending"
       },
       createdAt: {
         allowNull: false,

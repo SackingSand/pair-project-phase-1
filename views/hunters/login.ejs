@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <% if(msg) {%><div><%= msg%></div><br><%}%>
+        <% if(err) {%>
+            <div style="color: red;">
+                    <%= err %><br>
+
+            </div><br>
+        <%}%>
+        <div></div>
+        
+            <form action="/login/hunter" method="POST">
+            email<br>
+            <input type="text" name="email" placeholder="Email" value="<% if(data){ %><%= data%><% } %>"><br><br>
+            Password<br>
+            <input type="password" name="password" placeholder="Password"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </body>
+</html>

@@ -1,23 +1,41 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-
-  const Model = sequelize.Sequelize.Model;
+  const { Model } = sequelize.Sequelize;
 
   class Request extends Model {}
 
   Request.init({
-    hunter_id: DataTypes.INTEGER,
-    site_id: DataTypes.INTEGER
-  }, 
-  {
+    status: {
+      type: DataTypes.STRING,
+      defaultValues: "pending"
+    },
+    FossilHunterId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "FossilHunters",
+        key: "id"
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    SiteId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Sites",
+        key: "id"
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    }
+  }, {
     sequelize,
-    modelName : `Request` 
-  })
-
+    modelName: "Request"
+  });
   Request.associate = function(models) {
-    // associations can be defined here
+    Request.belongsTo(models.Site);
     Request.belongsTo(models.FossilHunter);
-    Request.belongsTo(models.ExcavationSite);
   };
   return Request;
 };
