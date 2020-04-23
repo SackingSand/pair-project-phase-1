@@ -11,7 +11,8 @@ router.get (`/`,
     next()
 } 
 ,hunterController.getProfiles);
-router.post(`/logout`, hunterController.logout)
+
+router.get(`/logout`, hunterController.logout)
 
 
 module.exports = router;

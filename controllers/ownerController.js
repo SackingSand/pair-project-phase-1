@@ -1,5 +1,7 @@
 const { Owner, Site, Request } = require('../models/index.js');
 
+const bcrypt = require(`bcrypt`);
+
 class OwnerController {
     static ownerPage(req, res) {
         const { id } = req.params;
@@ -42,6 +44,31 @@ class OwnerController {
         .catch(err => {
             res.send(err)
         })
+    static loginOwnerForm(req, res) {
+        res.render(`./owners/login`, {data : null, msg :null, err : null})
+    }    
+    
+    static loginOwner (req, res) {
+        const { email, password} = req.body;
+        Owner
+            .findOne({
+                where : {
+                    email : email
+                }
+            })
+            .then((data) => {
+                if(!bcrypt.compareSync(password, data.password)){
+                    throw new Error(`Kombinasi email & password tidak ditemukan`)
+                }
+                req.session.uid = data.id;
+                req.session.role = `owner`;
+                req.session.cookie.expires = false;
+                console.log(req.session);
+                res.redirect(`/owners`)
+            })
+            .catch(err => {
+                res.render(`./owners/login`, { data : email, msg :null, err : err})
+            })
     }
 }
 

@@ -59,13 +59,15 @@ class Controller {
                 }
             })
             .then((data) => {
+                if(!data){
+                    throw new Error(`Kombinasi email & password tidak ditemukan`)
+                }
                 if(!bcrypt.compareSync(password, data.password)){
                     throw new Error(`Kombinasi email & password tidak ditemukan`)
                 }
                 req.session.uid = data.id;
                 req.session.role = `hunter`;
                 req.session.cookie.expires = false;
-                console.log(req.session);
                 res.redirect(`/hunters`)
             })
             .catch(err => {
