@@ -16,10 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       validate : {
         isAlpha : {
-          msg : `name can only contain letters`,
+          msg : `first name can only contain letters`,
         },
         notEmpty : {
-          msg : `password cannot be empty`,
+          msg : `first name cannot be empty`,
+        },
+        len : {
+          args : [2,225],
+          msg : `first name requires at least 2 characters`
         }
       }
     },
@@ -27,10 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
       validate : {
         isAlpha : {
-          msg : `name can only contain letters`,
+          msg : `last name can only contain letters`,
         },
         notEmpty : {
-          msg : `password cannot be empty`,
+          msg : `last name cannot be empty`,
+        },
+        len : {
+          args : [2,225],
+          msg : `last name requires at least 2 characters`
         }
       }
     },
@@ -39,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       validate : {
         notEmpty : {
           msg : `password cannot be empty`,
+        },
+        len : {
+          args : [4,8],
+          msg : `Password only accepts 4 to 8 characters`
         }
       }
     },
@@ -49,6 +61,9 @@ module.exports = (sequelize, DataTypes) => {
         isEmail : {
           msg : `re-check your email formatting`,
         }
+      },
+      unique: {
+        msg : `This email is already registered`
       }
     },
     hunting_experience: DataTypes.INTEGER,
@@ -57,6 +72,10 @@ module.exports = (sequelize, DataTypes) => {
   {
     hooks : {
       beforeCreate : (hunter, options) => {
+        hunter.password = bcrypt.hashSync(hunter.password, saltRounds)
+        // bcrypt.compareSync(myPlaintextPassword, hash);
+      },
+      afterCreate : (hunter, options) => {
         hunter.password = bcrypt.hashSync(hunter.password, saltRounds)
         // bcrypt.compareSync(myPlaintextPassword, hash);
       }

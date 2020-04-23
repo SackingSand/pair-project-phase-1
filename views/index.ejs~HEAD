@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    <div> Welcome </div>
+    <div>Register as Site Owner | <a href="/register/hunter">Register as Hunter</a></div>
+    <div>Login as Site Owner | <a href="/login/hunter">Login as Hunter</a></div>
+
     <form action="/" method="POST">
         <input type="submit" value="send">
     </form>

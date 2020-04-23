@@ -8,6 +8,13 @@ const { Op } = require("sequelize");
 
 class Controller {
 
+    static huntersOnly(req, res, next){
+        if(req.session.role!==`hunter`){
+            res.redirect(`/`);
+        }
+     next()
+    } 
+
     static getProfiles (req, res){
         FossilHunter
             .findOne({
@@ -60,13 +67,15 @@ class Controller {
                 }
             })
             .then((data) => {
+                if(!data){
+                    throw new Error(`Kombinasi email & password tidak ditemukan`)
+                }
                 if(!bcrypt.compareSync(password, data.password)){
                     throw new Error(`Kombinasi email & password tidak ditemukan`)
                 }
                 req.session.uid = data.id;
                 req.session.role = `hunter`;
                 req.session.cookie.expires = false;
-                console.log(req.session);
                 res.redirect(`/hunters`)
             })
             .catch(err => {
@@ -133,6 +142,48 @@ class Controller {
             res.send(err.message)
         })
     }
+    static editHunterForm( req, res){
+        FossilHunter
+            .findOne({
+                where : { id : req.session.uid}
+            })
+            .then(data => {
+                res.render(`./hunters/editHunter`, {data, msg :null, err : {errors : null}})
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static updateHunter ( req, res){
+        const { first_name, last_name, password, password2, phone_number, hunting_experience, team_size} = req.body;
+        let newHunter = { 
+            first_name : first_name, 
+            last_name : last_name, 
+            password : password, 
+            phone_number : phone_number,
+            hunting_experience : hunting_experience, 
+            team_size : team_size
+        }
+        if(password!==password2){
+            console.log(`masuk`)
+            res.render(`./hunters/edit`, { data : newHunter, msg : null, err : { message : `password mismatch`}})
+            return
+        }
+        FossilHunter
+            .update(newHunter, {
+                where : {
+                    id : req.session.uid
+                }
+            })
+            .then(data => {
+                res.redirect(`/hunters`);
+            })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
 }
 
 module.exports = Controller;

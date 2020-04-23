@@ -7,7 +7,7 @@
         <% if(msg) {%><div><%= msg%></div><br><%}%>
         <div></div>
         
-        <form action="/register/hunter" method="POST">
+        <form action="/hunters/edit" method="POST">
         Name<br>
         <input type="text" name="first_name" placeholder="first_name" value="<% if(data){ %><%= data.first_name %><% } %>"><br>
         <input type="text" name="last_name" placeholder="last_name" value="<% if(data){ %><%= data.last_name %><% } %>"><br><br>
@@ -18,7 +18,7 @@
         Phone Number<br>
         <input type="text" name="phone_number" placeholder="Phone Number" value="<% if(data){ %><%= data.phone_number %><% } %>"><br><br>
         email<br>
-        <input type="text" name="email" placeholder="Email" value="<% if(data){ %><%= data.email%><% } %>"><br><br>
+        <input type="text" disabled name="email" placeholder="Email" value="<% if(data){ %><%= data.email%><% } %>"><br><br>
         Hunting Experience<br>
         <input type="number" name="hunting_experience" placeholder="in years. e.g : 2" value="<% if(data){ %><%= data.hunting_experience %><% } %>"><br><br>
         Team Size<br>
@@ -34,7 +34,7 @@
                     <%= err.message%><br>
             </div><br>
         <%}%>
-        <input type="submit" value="Register">
+        <input type="submit" value="Save">
         <a href="/"><input type="button" value="Cancel"></a>
     </form>
     </body>
