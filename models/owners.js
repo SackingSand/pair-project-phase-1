@@ -3,6 +3,7 @@ const bcrypt = require(`bcrypt`);
 module.exports = (sequelize, DataTypes) => {
 
   const { Model } = sequelize.Sequelize;
+  const saltRounds = 10;
 
   class Owner extends Model {
     get fullName() {
@@ -46,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Address can\'t be empty"
+          msg: "password can\'t be empty"
         }
       }
     },

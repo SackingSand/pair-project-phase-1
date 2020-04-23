@@ -4,10 +4,11 @@ const bcrypt = require(`bcrypt`);
 
 class OwnerController {
     static ownerPage(req, res) {
-        const { id } = req.params;
+        console.log(req.session)
+        const { uid } = req.session;
 
         Owner
-        .findByPk(+id)
+        .findByPk(uid)
         .then(owner =>{
             res.render('./owners/home', { owner })
         })
@@ -44,6 +45,8 @@ class OwnerController {
         .catch(err => {
             res.send(err)
         })
+    }
+    
     static loginOwnerForm(req, res) {
         res.render(`./owners/login`, {data : null, msg :null, err : null})
     }    
@@ -63,13 +66,38 @@ class OwnerController {
                 req.session.uid = data.id;
                 req.session.role = `owner`;
                 req.session.cookie.expires = false;
-                console.log(req.session);
                 res.redirect(`/owners`)
             })
             .catch(err => {
                 res.render(`./owners/login`, { data : email, msg :null, err : err})
             })
     }
+
+    static createOwnerForm( req, res){
+        res.render(`./owners/addOwner`, {data : null, msg :null, err : {errors : null}})
+    }
+
+    static createOwner (req, res){
+        const { first_name, last_name, email, password, password2, address, phone_number} = req.body;
+        let newOwner = { first_name, last_name, email, password, address, phone_number}
+        if(password!==password2){
+            console.log(`masuk`)
+            res.render(`./owners/addOwner`, { data : newOwner, msg : null, err : { message : `password mismatch`}})
+            return
+        }
+        Owner
+            .create(newOwner)
+            .then(() => {
+                res.render(`./owners/login`, { data : email, msg : `Hunter ${first_name+' '+last_name} is registered, you may now login`, err : null})
+            })
+            .catch(err => {
+                // res.send(err.message)
+                res.render(`./owners/addOwner`, { data : newOwner, msg : null, err : err})
+            })
+    }
+
+
+
 }
 
 module.exports = OwnerController;
