@@ -1,0 +1,20 @@
+[
+    {
+        "first_name": "John",
+        "last_name": "Brooks",
+        "address": "Shelby, North Carolina",
+        "phone_number": "089745637623"
+    },
+    {
+        "first_name": "Mike",
+        "last_name": "Williams",
+        "address": "Bronson, Florida",
+        "phone_number": "089754637623"
+    },
+    {
+        "first_name": "Devonte",
+        "last_name": "Wuckert",
+        "address": "Westminster, Colorado",
+        "phone_number": "038974562345"
+    }
+]

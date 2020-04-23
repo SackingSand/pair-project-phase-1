@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Site</title>
+</head>
+<body>
+    <h1>Edit Site</h1>
+    <form action="/sites/edit/<%= site.id %>" method="POST">
+        <div>
+            <label for="name">Site Name</label>
+            <input type="text" name="name" id="name" value="<%= site.name %>">
+        </div>
+        <div>
+            <label for="location">Site Location</label>
+            <input type="text" name="location" id="name" value="<%= site.location %>">
+        </div>
+        <div>
+            <label for="area">Site Area</label>
+            <input type="text" name="area" id="area" value="<%= site.area %>">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" value="<%= site.email %>">
+        </div>
+        <div>
+            <input type="submit" value="Update">
+            <input type="button" value="Cancel" onclick="window.location.href='/sites/list/<%= site.id %>'">
+        </div>
+    </form>
+</body>
+</html>
