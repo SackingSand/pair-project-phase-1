@@ -21,7 +21,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique : true,
+        allowNull: false
       },
       start_hunt_year: {
         type: Sequelize.STRING

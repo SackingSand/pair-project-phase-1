@@ -2,9 +2,7 @@
 
 const bcrypt = require(`bcrypt`);
 const Model = require(`../models/`);
-const session = require(`express-session`)
 const FossilHunter = Model.FossilHunter;
-const saltRounds = 10;
 
 
 class Controller {
@@ -17,15 +15,15 @@ class Controller {
                 }
             })
             .then(data => {
-                res.send(data)
+                res.send([data,req.session])
             })
             .catch(err => {
-                res.send(err)
+                res.send()
             })
     }
 
     static createHunterForm( req, res){
-        res.render(`./hunters/addHunter`, {data : null, msg :null, err : null})
+        res.render(`./hunters/addHunter`, {data : null, msg :null, err : {errors : null}})
     }
 
     static createHunter (req, res){
@@ -33,7 +31,7 @@ class Controller {
         let newHunter = { first_name, last_name, password, phone_number, email, start_hunt_year, team_size }
         if(password!==password2){
             console.log(`masuk`)
-            res.render(`./hunters/addHunter`, { data : newHunter, msg : null, err : [{ message : `password mismatch`}]})
+            res.render(`./hunters/addHunter`, { data : newHunter, msg : null, err : { message : `password mismatch`}})
             return
         }
         FossilHunter
@@ -65,6 +63,7 @@ class Controller {
                 }
                 req.session.uid = data.id;
                 req.session.role = `hunter`;
+                req.session.cookie.expires = false;
                 console.log(req.session);
                 res.redirect(`/hunters`)
             })

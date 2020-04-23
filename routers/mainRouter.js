@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require(`express-session`)
 const router = express.Router();
 const MainController = require('../controllers/mainController.js');
 const OwnerController = require('../controllers/ownerController.js');
@@ -26,5 +25,10 @@ router.get (`/login/hunter`, hunterController.loginHunterForm)
 router.post(`/login/hunter`, hunterController.loginHunter)
 router.get (`/register/hunter`, hunterController.createHunterForm)
 router.post(`/register/hunter`, hunterController.createHunter)
+
+router.get (`/login/owner`, OwnerController.loginOwnerForm)
+router.post(`/login/owner`, OwnerController.loginOwner)
+// router.get (`/register/owner`, OwnerController.createOwnerForm)
+// router.post(`/register/owner`, OwnerController.createOwner)
 
 module.exports = router;
