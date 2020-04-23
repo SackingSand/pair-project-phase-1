@@ -7,11 +7,25 @@ module.exports = (sequelize, DataTypes) => {
   class FossilHunter extends Model {}
 
   FossilHunter.init({
-    name: {
+    first_name: {
       type : DataTypes.STRING,
       validate : {
         isAlpha : {
           msg : `name can only contain letters`,
+        },
+        notEmpty : {
+          msg : `password cannot be empty`,
+        }
+      }
+    },
+    last_name: {
+      type : DataTypes.STRING,
+      validate : {
+        isAlpha : {
+          msg : `name can only contain letters`,
+        },
+        notEmpty : {
+          msg : `password cannot be empty`,
         }
       }
     },

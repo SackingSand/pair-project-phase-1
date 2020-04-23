@@ -9,7 +9,8 @@
         
         <form action="/register/hunter" method="POST">
         Name<br>
-        <input type="text" name="name" placeholder="Name" value="<% if(data){ %><%= data.name %><% } %>"><br><br>
+        <input type="text" name="first_name" placeholder="Name" value="<% if(data){ %><%= data.first_name %><% } %>"><br>
+        <input type="text" name="last_name" placeholder="Name" value="<% if(data){ %><%= data.last_name %><% } %>"><br><br>
         Password<br>
         <input type="password" name="password" placeholder="Password"><br><br>
         Ketik ulang Password<br>

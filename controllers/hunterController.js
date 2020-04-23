@@ -22,8 +22,8 @@ class Controller {
     }
 
     static createHunter (req, res){
-        const { name, password, password2, phone_number, email, start_hunt_year, team_size} = req.body;
-        let newHunter = { name, password, phone_number, email, start_hunt_year, team_size }
+        const { first_name, last_name, password, password2, phone_number, email, start_hunt_year, team_size} = req.body;
+        let newHunter = { first_name, last_name, password, phone_number, email, start_hunt_year, team_size }
         if(password!==password2){
             console.log(`masuk`)
             res.render(`./hunters/addHunter`, { data : newHunter, msg : null, err : [{ message : `password mismatch`}]})

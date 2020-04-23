@@ -17,4 +17,6 @@ router.get('/',
 
 router.post('/', MainController.sendMail)
 
+router.get(`/`)
+
 module.exports = router;
