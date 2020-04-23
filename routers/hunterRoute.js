@@ -11,7 +11,10 @@ router.get (`/`,
     next()
 } 
 ,hunterController.getProfiles);
-router.post(`/logout`, hunterController.logout)
+router.post(`/logout`, hunterController.logout);
+router.get('/request', hunterController.showRequest);
+router.get('/request/:id/accept', hunterController.acceptRequest);
+router.get('/request/:id/reject', hunterController.rejectRequest);
 
 
 module.exports = router;

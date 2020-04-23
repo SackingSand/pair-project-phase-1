@@ -6,6 +6,21 @@
     <title>Your Site Request</title>
 </head>
 <body>
-    
+    <h1><%= owner.fullName %> Here's the list of applicant of <%= site.name %></h1>
+
+    <table border="1">
+        <tr>
+            <th>Hunter Name</th>
+            <th>Hunting Experience</th>
+            <th>Action</th>
+        </tr>
+        <% request.forEach(req => { %>
+        <tr>
+            <td><%= req.FossilHunter.fullName %></td>
+            <td><%= req.FossilHunter.hunting_experience %> years</td>
+            <td><a href="/hunters/request/<%= req.id %>/accept">Accept</a> | <a href="/hunters/request/<%= req.id %>/reject">Reject</a></td>
+        </tr>
+        <% }) %>
+    </table>
 </body>
 </html>

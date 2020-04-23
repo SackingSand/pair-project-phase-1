@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <% if(msg) {%><div><%= msg%></div><br><%}%>
+        <div></div>
+        
+        <form action="/register/owner" method="POST">
+        Name<br>
+        <input type="text" name="first_name" placeholder="first_name" value="<% if(data){ %><%= data.first_name %><% } %>"><br>
+        <input type="text" name="last_name" placeholder="last_name" value="<% if(data){ %><%= data.last_name %><% } %>"><br><br>
+        email<br>
+        <input type="text" name="email" placeholder="Email" value="<% if(data){ %><%= data.email%><% } %>"><br><br>
+        Password<br>
+        <input type="password" name="password" placeholder="Password"><br><br>
+        Ketik ulang Password<br>
+        <input type="password" name="password2" placeholder="Password"><br><br>
+        Address<br>
+        <input type="text" name="address" placeholder="Address" value="<% if(data){ %><%= data.address %><% } %>"><br><br>
+        Phone Number<br>
+        <input type="text" name="phone_number" placeholder="Phone Number" value="<% if(data){ %><%= data.phone_number %><% } %>"><br><br>
+        <% if(err.errors) {%>
+            <div style="color: red;">
+                <% for (let i = 0; i < err.errors.length; i++) {%>
+                    <%= err.errors[i].message%><br>
+                <%}%>
+            </div><br>
+        <%} else if(err.message) {%>
+            <div style="color: red;">
+                    <%= err.message%><br>
+            </div><br>
+        <%}%>
+        <input type="submit" value="Register">
+        <a href="/"><input type="button" value="Cancel"></a>
+    </form>
+    </body>
+</html>

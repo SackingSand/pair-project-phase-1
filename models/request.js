@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Request.init({
     status: {
-      type: DataTypes.STRING,
-      defaultValues: "pending"
+      type: DataTypes.STRING
     },
     FossilHunterId: {
       type: DataTypes.INTEGER,
@@ -30,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'cascade'
     }
   }, {
+    hooks: {
+      beforeCreate(request) {
+        if(!request.status) {
+          request.status = "pending"
+        }
+      }
+    },
     sequelize,
     modelName: "Request"
   });

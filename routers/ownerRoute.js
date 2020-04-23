@@ -10,7 +10,8 @@ router.get('/',
         next()
     } 
     ,OwnerController.ownerPage);
-router.get('/:id/list', OwnerController.showOwnedSites);
+router.get('/list', OwnerController.showOwnedSites);
+router.get('/list/request/:id', OwnerController.showRequestList);
 
 
 
