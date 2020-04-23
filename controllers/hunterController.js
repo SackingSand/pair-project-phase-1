@@ -11,12 +11,16 @@ class Controller {
 
     static getProfiles (req, res){
         FossilHunter
-            .findAll()
-            .then((data) => {
-                res.send([data,req.session])
+            .findOne({
+                where : {
+                    id : req.session.uid
+                }
+            })
+            .then(data => {
+                res.send(data)
             })
             .catch(err => {
-                res.send(err.message)
+                res.send(err)
             })
     }
 
@@ -67,6 +71,12 @@ class Controller {
             .catch(err => {
                 res.render(`./hunters/login`, { data : email, msg :null, err : err})
             })
+    }
+
+    static logout (req, res){
+        req.session.destroy(err => {
+            res.redirect(`/`)
+        })
     }
 }
 
