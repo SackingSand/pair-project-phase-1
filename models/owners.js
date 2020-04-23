@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require(`bcrypt`);
 module.exports = (sequelize, DataTypes) => {
 
   const { Model } = sequelize.Sequelize;
@@ -28,6 +29,27 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Email can\'t be empty"
+        },
+        isEmail : {
+          msg : `re-check your email formatting`,
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Address can\'t be empty"
+        }
+      }
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -54,7 +76,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: "Owner"
+    modelName: "Owner",
+    hooks : {
+      beforeCreate : (hunter, options) => {
+        hunter.password = bcrypt.hashSync(hunter.password, saltRounds)
+        // bcrypt.compareSync(myPlaintextPassword, hash);
+      }
+    }
   });
 
 

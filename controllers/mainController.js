@@ -1,11 +1,19 @@
 const transporter = require('../nodemailer.js');
 
 class MainController {
-    static button(req,res) {
-        res.render('try')
+    
+    static home(req,res) {
+        res.render('index')
     }
 
     static sendMail(req, res) {
+    
+    }
+
+    static ownerLoginForm (req, res) {
+    
+    }
+    static hunterLoginForm (req, res) {
     
     }
 }
