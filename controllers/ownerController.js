@@ -126,7 +126,66 @@ class OwnerController {
             res.redirect(`/`)
         })
     }
+    static acceptRequest(req, res) {
+        Request
+        .findOne({
+            where: {
+                FossilHunterId: req.params.hunt_id,
+                SiteId: req.params.site_id
+            },
+            include: [FossilHunter]
+        })
+        .then(request => {
+            request.status = "accept";
+            const mailOptions = {
+            from: 'excavadm@gmail.com',
+            to: request.FossilHunter.email,
+            subject: 'Excusvation Mail',
+            text: 'Your excavation request is granted.'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        })
+        .catch(err => {
+            res.send(err.message);
+        })
+    }
 
+    static rejectRequest(req, res) {
+        Request
+        .findOne({
+            where: {
+                FossilHunterId: req.params.hunt_id,
+                SiteId: req.params.site_id
+            }
+        })
+        .then(request => {
+            request.status = "reject";
+            const mailOptions = {
+            from: 'excavadm@gmail.com',
+            to: request.FossilHunter.email,
+            subject: 'Excusvation Mail',
+            text: 'Your excavation request is revoked.'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        })
+        .catch(err => {
+            res.send(err.message);
+        })
+    }
 
 }
 

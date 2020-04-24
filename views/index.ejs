@@ -4,14 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .banner {
+            width: 100vw;
+            height: 35px;
+            text-align: center;
+            font-size:xx-large;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .links{
+            display: flex;
+            width: 45vw;
+            padding: 100px 0 100px 0;
+            border: 1px solid black;
+            justify-content: center;
+            margin: 15px;
+            border-radius: 15px 0 15px 0;
+            transition: 0.3s ease-in-out;
+        }
+        .links:hover {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 <body>
-    <div> Welcome </div>
-    <div><a href="/register/owner">Register as Site Owner</a> | <a href="/register/hunter">Register as Hunter</a></div>
-    <div><a href="/login/owner">Login as Site Owner</a> | <a href="/login/hunter">Login as Hunter</a></div>
-
-    <form action="/" method="POST">
-        <input type="submit" value="send">
-    </form>
+    <div class="banner"> Welcome </div>
+    <div class="container">
+        <a href="/register/owner"><div class="links">Register as Site Owner</div></a>
+        <a href="/register/hunter"><div class="links">Register as Hunter</div></a>
+        <a href="/login/owner"><div class="links">Login as Site Owner</div></a>
+        <a href="/login/hunter"><div class="links">Login as Hunter</div></a>
+    </div>
 </body>
 </html>

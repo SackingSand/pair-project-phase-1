@@ -90,7 +90,7 @@ class Controller {
     }
 
     static showRequest(req, res) {
-        console.log(req.session);
+        console.log(req.session.uid);
         const id = req.session.uid;
         let request = [];
 
@@ -108,7 +108,6 @@ class Controller {
             .findByPk(id)
         })
         .then(hunters => {
-            // res.send([request, hunters])
             res.render('./requests/requestStatus', { request, hunters })
         })
         .catch(err => {

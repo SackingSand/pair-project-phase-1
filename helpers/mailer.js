@@ -5,16 +5,15 @@ const nodemailer = require('nodemailer');
 function sendMail (target, subject, message){
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
+        service: 'gmail',
         auth: {
-            user: 'twila58@ethereal.email',
-            pass: 'nyzmSbNhAuuMDFFEhP'
+          user: 'excavadm@gmail.com',
+          pass: '12345poiuy' // naturally, replace both with your real credentials or an application-specific password
         }
-    });
+      });
     
     const mailOptions = {
-        from: 'twila58@ethereal.email',
+        from: 'excavadm@gmail.com',
         to: target,
         subject: subject,
         text: message
