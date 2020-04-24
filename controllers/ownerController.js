@@ -3,6 +3,14 @@ const { Owner, Site, Request, FossilHunter } = require('../models/index.js');
 const bcrypt = require(`bcrypt`);
 
 class OwnerController {
+
+    static ownersOnly(req, res, next){
+        if(req.session.role!==`owner`){
+            res.redirect(`/`);
+        }
+     next()
+    } 
+
     static ownerPage(req, res) {
         console.log(req.session)
         const { uid } = req.session;
