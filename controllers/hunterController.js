@@ -90,7 +90,7 @@ class Controller {
     }
 
     static showRequest(req, res) {
-        console.log(req.session.uid);
+        console.log(req.session);
         const id = req.session.uid;
         let request = [];
 
@@ -108,6 +108,7 @@ class Controller {
             .findByPk(id)
         })
         .then(hunters => {
+            // res.send([request, hunters])
             res.render('./requests/requestStatus', { request, hunters })
         })
         .catch(err => {
@@ -160,7 +161,6 @@ class Controller {
         let newHunter = { 
             first_name : first_name, 
             last_name : last_name, 
-            password : password, 
             phone_number : phone_number,
             hunting_experience : hunting_experience, 
             team_size : team_size
@@ -179,6 +179,42 @@ class Controller {
             .then(data => {
                 res.redirect(`/hunters`);
             })
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static openList ( req, res){
+        Site
+            .findAll({
+                include : [`Owner`]
+            })
+            .then(owner => res.render(`./hunters/opensites`, {owner}))
+            .catch(err => {
+                res.send(err);
+            })
+    }
+
+    static createRequest ( req, res){
+        Request
+            .findOne({
+                where : {
+                    FossilHunterId : req.session.uid,
+                    SiteId : req.params.id
+                }
+            })
+            .then(data => {
+                if(!data){
+                    return Request. create({
+                                        FossilHunterId : req.session.uid,
+                                        SiteId : req.params.id,
+                                        status : `pending`
+                                    })
+                } else {
+                    throw new Error (`You already requested for this site before`)
+                }
+            })
+            .then(()=> res.redirect(`/hunters/request`))
             .catch(err => {
                 res.send(err);
             })

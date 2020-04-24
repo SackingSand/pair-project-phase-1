@@ -2,8 +2,6 @@ const { Owner, Site, Request, FossilHunter } = require('../models/index.js');
 
 const bcrypt = require(`bcrypt`);
 
-const bcrypt = require(`bcrypt`);
-
 class OwnerController {
     static ownerPage(req, res) {
         console.log(req.session)
@@ -115,6 +113,12 @@ class OwnerController {
             })
     }
 
+
+    static logout (req, res){
+        req.session.destroy(err => {
+            res.redirect(`/`)
+        })
+    }
 
 
 }

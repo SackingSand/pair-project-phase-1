@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Open Sites</title>
+</head>
+<body>
+    <%- include(`./partials/nav`, {page : ''}) %>
+    <h1>Site List</h1>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Site Owner</th>
+                <th>Site Name</th>
+                <th>Location</th>
+                <th>Area</th>
+                <th>Action</th>
+            </tr>
+            <% owner.forEach(site => {%>
+            <tr>
+                <td><%= site.Owner.fullName %></td>
+                <td><%= site.name %></td>
+                <td><%= site.location %></td>
+                <td><%= site.area %> ha</td>
+                <td><a href="/hunters/sitelist/apply/<%= site.id %>">Apply for this site</a></td>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>

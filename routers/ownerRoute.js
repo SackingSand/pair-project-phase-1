@@ -12,6 +12,7 @@ router.get('/',
     ,OwnerController.ownerPage);
 router.get('/list', OwnerController.showOwnedSites);
 router.get('/list/request/:id', OwnerController.showRequestList);
+router.get(`/logout`, OwnerController.logout)
 
 
 
