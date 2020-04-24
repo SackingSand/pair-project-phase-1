@@ -1,5 +1,5 @@
 const { Owner, Site, Request, FossilHunter } = require('../models/index.js');
-
+const mailer = require(`../helpers/mailer.js`)
 const bcrypt = require(`bcrypt`);
 
 class OwnerController {
@@ -120,7 +120,6 @@ class OwnerController {
                 res.render(`./owners/addOwner`, { data : newOwner, msg : null, err : err})
             })
     }
-
 
     static logout (req, res){
         req.session.destroy(err => {

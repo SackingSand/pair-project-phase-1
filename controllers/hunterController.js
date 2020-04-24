@@ -216,7 +216,7 @@ class Controller {
             })
             .then(()=> res.redirect(`/hunters/request`))
             .catch(err => {
-                res.send(err);
+                    res.send(err.message);
             })
     }
 

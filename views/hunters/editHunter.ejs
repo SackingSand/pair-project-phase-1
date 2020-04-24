@@ -4,6 +4,8 @@
         <title></title>
     </head>
     <body>
+        <%- include(`./partials/nav`, {page : ''}) %><br><br><br>
+        <div> </div>
         <% if(msg) {%><div><%= msg%></div><br><%}%>
         <div></div>
         
@@ -35,7 +37,7 @@
             </div><br>
         <%}%>
         <input type="submit" value="Save">
-        <a href="/"><input type="button" value="Cancel"></a>
+        <a href="#" onclick="history.go(-1)"><input type="button" value="Cancel"></a>
     </form>
     </body>
 </html>
